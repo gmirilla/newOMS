@@ -25,7 +25,7 @@ return new class extends Migration
             $table->date('due_date')->nullable();
             $table->date('completed_date')->nullable();
             $table->foreignId('requested_by')->constrained('users')->onDelete('cascade');
-            $table->foreignId('assigned_to')->nullable()->constrained('users')->onDelete('set null');
+            $table->integer('assigned_to')->nullable();
             $table->timestamps();
         });
 

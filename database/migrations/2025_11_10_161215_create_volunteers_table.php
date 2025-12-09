@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('skills')->nullable();
             $table->text('availability')->nullable();
             $table->text('background_check_info')->nullable();
-            $table->foreignId('approved_by')->nullable()->constrained('users')->onDelete('set null');
+            $table->integer('approved_by')->nullable();
             $table->timestamps();
         });
     }

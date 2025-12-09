@@ -20,7 +20,7 @@ return new class extends Migration
             $table->json('data')->nullable(); // additional data
             $table->boolean('is_read')->default(false);
             $table->timestamp('read_at')->nullable();
-            $table->foreignId('sent_by')->nullable()->constrained('users')->onDelete('set null');
+            $table->integer('sent_by')->nullable();
             $table->timestamps();
         });
     }
