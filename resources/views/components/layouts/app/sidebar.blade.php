@@ -1,14 +1,24 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
+    <style>
+        .sidebar-text a{
+            color: #DA9100; /* Tailwind's text-neutral-300 */
+        }
+        .sidebar-text:hover {
+            color: black; /* White on hover */
+        }
+        .daralamah-green {
+            background-color: #324b45; /* Dark green color */
+        }
+    </style>
     <head>
         @include('partials.head')
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     </head>
     <body class="min-h-screen bg-white dark:bg-zinc-800">
-        <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
+        <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-green-950 sidebar-text">
             <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
-
             <a href="{{ route('dashboardoms') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
                 <x-app-logo />
             </a>

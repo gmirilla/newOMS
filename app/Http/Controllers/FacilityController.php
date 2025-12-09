@@ -22,8 +22,7 @@ class FacilityController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Facility::with(['managedBy', 'roomAllocations'])
-            ->withCount(['roomAllocations', 'children', 'maintenanceRequests']);
+        $query = Facility::query();
 
         // Apply filters
         if ($request->has('search')) {
@@ -69,39 +68,31 @@ class FacilityController extends Controller
      */
     public function store(Request $request)
     {
+
         $user=Auth::user();
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'type' => 'required|in:dormitory,classroom,kitchen,clinic,office,recreation,storage',
-            'location' => 'nullable|string|max:255',
             'capacity' => 'nullable|integer|min:0',
-            'area' => 'nullable|numeric|min:0',
-            'condition' => 'nullable|in:excellent,good,fair,poor',
-            'construction_year' => 'nullable|integer|min:1900|max:' . (date('Y') + 1),
-            'last_maintenance' => 'nullable|date',
-            'next_maintenance' => 'nullable|date',
             'description' => 'nullable|string',
-            'notes' => 'nullable|string',
+            'admin_id' => 'nullable|integer|exists:users,id',
         ]);
+
 
         try {
             DB::beginTransaction();
 
+
             Facility::create([
                 'name' => $validated['name'],
                 'type' => $validated['type'],
-                'location' => $validated['location'],
+                'type_error' => $validated['type_typeerror'],
                 'capacity' => $validated['capacity'],
-                'area' => $validated['area'],
-                'condition' => $validated['condition'],
-                'construction_year' => $validated['construction_year'],
-                'last_maintenance' => $validated['last_maintenance'],
-                'next_maintenance' => $validated['next_maintenance'],
                 'description' => $validated['description'],
-                'notes' => $validated['notes'],
-                'managed_by' => $user->id,
+                'managed_by' => $validated['admin_id'],
                 'is_active' => true,
             ]);
+                  
 
             DB::commit();
 
@@ -109,7 +100,8 @@ class FacilityController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
             Log::error('Error creating facility: ' . $e->getMessage());
-            return back()->withInput()->with('error', 'Failed to create facility. Please try again.');
+              $errormsg = $e->getMessage();
+            return back()->withInput()->with('error', 'Failed to create facility. Please try again.',$errormsg);
         }
     }
 

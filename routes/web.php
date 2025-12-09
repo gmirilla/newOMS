@@ -87,6 +87,8 @@ Route::middleware('auth')->group(function () {
     Route::get('facilities/{facility}/rooms', [FacilityController::class, 'rooms'])->name('facilities.rooms');
     Route::get('facilities/{facility}/list', [FacilityController::class, 'index'])->name('facilities.index');
     Route::post('facilities/{facility}/store', [FacilityController::class, 'store'])->name('facilities.store');
+    Route::get('facilities/{facility}/show', [FacilityController::class, 'show'])->name('facilities.show');
+    Route::get('facilities/{facility}/edit', [FacilityController::class, 'edit'])->name('facilities.edit');
     Route::post('facilities/{facility}/assign-room', [FacilityController::class, 'assignRoom'])->name('facilities.assign-room');
     
     // Maintenance Management

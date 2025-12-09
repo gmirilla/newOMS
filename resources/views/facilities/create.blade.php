@@ -2,6 +2,16 @@
 @section('title', 'Add New Facility')
 
 <x-layouts.app>
+    <div>
+  @if ($errors->any())
+  <div class="alert alert-danger">
+      <ul>
+          @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+          @endforeach
+      </ul>
+  </div>
+@endif
 <div class="container">
     <h2>Create New Facility</h2>
 

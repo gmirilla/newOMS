@@ -163,11 +163,11 @@
                         </td>
                         <td>
                             <div class="flex items-center space-x-2">
-                                <a href="{{ route('facility.show', $facility) }}" 
+                                <a href="{{ route('facilities.show', $facility) }}" 
                                    class="p-1 btn btn-primary"
                                    title="View Profile">View
                                 </a>
-                                <a href="{{ route('facility.edit', $facility) }}" 
+                                <a href="{{ route('facilities.edit', $facility) }}" 
                                 class="p-1 btn btn-success"
                                    title="Edit">Edit
                                     <i data-lucide="edit" class="w-4 h-4"></i>
